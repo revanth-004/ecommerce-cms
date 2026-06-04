@@ -29,6 +29,9 @@ const Coupon = require("./models/Coupon");
 const articleRoutes = require("./routes/articleRoutes");
 const Article = require("./models/Article");
 
+const articleCategoryRoutes = require("./routes/articleCatergoryRoutes");
+const ArticleCategory = require("./models/ArticleCategory");
+
 const taxRoutes = require("./routes/taxRoutes");
 const Tax = require("./models/Tax");
 
@@ -112,6 +115,7 @@ app.use("/api/sellers", sellerRoutes);
 app.use("/api/offers", offerRoutes);
 app.use("/api/coupons", couponRoutes);
 app.use("/api/article", articleRoutes);
+app.use("/api/articleCategory", articleCategoryRoutes);
 app.use("/api/taxes", taxRoutes);
 app.use("/api/specification", specificationRoutes);
 app.use("/api/specificationDetail", specificationDetailRoutes);

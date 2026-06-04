@@ -13,11 +13,15 @@ const routeNameMap = {
   products: "Products",
   offers: "Offers",
   coupons: "Coupons",
+  articles: "Article",
   settings: "Settings",
   product_categories: "Product Categories",
   tools: "Tools",
+  tax: "Tax",
+  Hsn: "HSN",
   specification: "Specification ",
   specification_details: "Specification Detail",
+  article_categories: "Article Categories",
 };
 
 const PageBreadCrumbs = () => {

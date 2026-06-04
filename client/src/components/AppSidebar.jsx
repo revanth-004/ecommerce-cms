@@ -41,7 +41,7 @@ const AppSidebar = () => {
           <p className="text-xl font-bold text-(--text-primary)">EMI</p>
         </div>
 
-        <ul className="space-y-1">
+        <ul className="">
           <li>
             <NavLink
               to="/dashboard"
@@ -145,8 +145,19 @@ const AppSidebar = () => {
               <p className="text-sm">Articles</p>
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/article_categories"
+              className={({ isActive }) =>
+                `${linkClass} flex ${isActive ? activeClass : idleClass}`
+              }
+            >
+              <CategoryIcon fontSize="small" className="opacity-70" />
+              <p className="text-sm">Article Categories</p>
+            </NavLink>
+          </li>
 
-          <li className="pt-4 mt-4 border-t border-(--border-color)">
+          <li className="pt-2 mt-2 border-t border-(--border-color)">
             <NavLink
               to="/settings"
               className={({ isActive }) =>

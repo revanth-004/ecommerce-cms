@@ -158,15 +158,6 @@ const CustomerForm = ({
             />
           </div>
 
-          <InputField
-            label="GST Number"
-            name="customerGST"
-            type="text"
-            value={formData.customerGST}
-            onChange={handleChange}
-            placeholder="Enter GST Number"
-            error={formErrors?.customerGST}
-          />
           <FormCard
             title=" Billing Address"
             titleStyle="h4"
@@ -287,6 +278,15 @@ const CustomerForm = ({
             onChange={handleChange}
             placeholder="Zipcode"
             error={formErrors.customerZipcode}
+          />
+          <InputField
+            label="GST Number"
+            name="customerGST"
+            type="text"
+            value={formData.customerGST}
+            onChange={handleChange}
+            placeholder="Enter GST Number"
+            error={formErrors?.customerGST}
           />
 
           <SelectInput
