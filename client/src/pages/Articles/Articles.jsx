@@ -1,50 +1,46 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router";
 import axios from "axios";
+import { NavLink } from "react-router";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css";
 import { useToast } from "../../context/ToastContext.jsx";
 import BasicTable from "../../components/tables/BasicTable/BasicTable";
 
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { selectSelectedCompany } from "../../features/company/companySelectors";
 
-const Offers = () => {
+const Articles = () => {
   const { showToast } = useToast();
-  const [offers, setOffers] = useState([]);
+  const [articles, setArticles] = useState([]);
+
   const [searchQuery, setSearchQuery] = useState("");
-
   const selectedCompany = useAppSelector(selectSelectedCompany);
+  const tableHeaders = [["articleTitle", "Article Title"]];
 
-  const tableHeaders = [
-    ["offerName", "Offer Name"],
-    ["offerValue", "Value"],
-  ];
-
-  const filteredOffers = offers.filter(
-    (cus) =>
-      cus.offerName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      cus.offerEmail?.toLowerCase().includes(searchQuery.toLowerCase()),
+  const filteredArticles = articles?.filter((art) =>
+    art.articleTitle?.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   useEffect(() => {
-    const fetchOffers = async () => {
+    const fetchArticles = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/offers?companyId=${selectedCompany._id}`,
+          `http://localhost:3000/api/article?companyId=${selectedCompany._id}`,
         );
-        setOffers(res.data.data);
+        setArticles(res.data.data);
       } catch (err) {
-        console.error("Error fetching offers", err);
+        console.error("Error fetching articles", err);
       }
     };
-    fetchOffers();
+    fetchArticles();
   }, [selectedCompany?._id]);
 
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/api/offers/${id}`,
+        `http://localhost:3000/api/article/${id}`,
       );
-      setOffers((prev) => prev.filter((cus) => cus._id !== id));
+      setArticles((prev) => prev.filter((cus) => cus._id !== id));
       showToast(response.data.message, "success");
     } catch (err) {
       showToast(response.data.message, "error");
@@ -106,22 +102,23 @@ const Offers = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <NavLink to="/offers/create">
+          <NavLink to="/articles/create">
             <button className="px-4 py-2 text-sm font-medium text-white bg-(--color-primary) rounded-lg shadow-lg active:scale-95">
-              + Add Offer
+              + Add Article
             </button>
           </NavLink>
         </div>
       </div>
 
       <BasicTable
-        page="offers"
-        filteredData={filteredOffers}
+        page="articles"
+        filteredData={filteredArticles}
         headers={tableHeaders}
         onDelete={handleDelete}
+        noView={true}
       />
     </div>
   );
 };
 
-export default Offers;
+export default Articles;

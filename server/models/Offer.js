@@ -8,7 +8,10 @@ const offerSchema = new mongoose.Schema(
     offerBanner: { type: String },
     offerValue: { type: String },
     offerMethod: { type: String },
-    offerValidity: { type: String },
+    offerValidity: {
+      from: { type: String },
+      to: { type: String },
+    },
     offerCategory: { type: String },
     offerTo: { type: [String] },
   },

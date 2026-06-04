@@ -23,6 +23,12 @@ const Seller = require("./models/Seller");
 const offerRoutes = require("./routes/offerRoutes");
 const Offer = require("./models/Offer");
 
+const couponRoutes = require("./routes/couponRoutes");
+const Coupon = require("./models/Coupon");
+
+const articleRoutes = require("./routes/articleRoutes");
+const Article = require("./models/Article");
+
 const taxRoutes = require("./routes/taxRoutes");
 const Tax = require("./models/Tax");
 
@@ -104,6 +110,8 @@ app.use("/api/brands", brandRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/sellers", sellerRoutes);
 app.use("/api/offers", offerRoutes);
+app.use("/api/coupons", couponRoutes);
+app.use("/api/article", articleRoutes);
 app.use("/api/taxes", taxRoutes);
 app.use("/api/specification", specificationRoutes);
 app.use("/api/specificationDetail", specificationDetailRoutes);

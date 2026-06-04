@@ -4,7 +4,7 @@ const organizerSchema = new mongoose.Schema(
     companyName: { type: String, trim: true },
     companyEmail: { type: String, unique: true, lowercase: true },
     companyMobileCountryCode: { type: String },
-    companyMobile: { type: String, unique: true, trim: true },
+    companyMobile: { type: String, trim: true },
     companyWebsite: { type: String, trim: true },
     companyGST: { type: String, uppercase: true, trim: true },
     companyZipcode: { type: String },

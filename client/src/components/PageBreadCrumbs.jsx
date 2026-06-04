@@ -12,6 +12,7 @@ const routeNameMap = {
   view: "View",
   products: "Products",
   offers: "Offers",
+  coupons: "Coupons",
   settings: "Settings",
   product_categories: "Product Categories",
   tools: "Tools",

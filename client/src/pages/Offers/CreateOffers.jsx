@@ -16,7 +16,7 @@ const initialState = {
   offerBanner: "",
   offerValue: "",
   offerMethod: "",
-  offerValidity: "",
+  offerValidity: { from: "", to: "" },
   offerCategory: "",
   offerTo: "",
 };

@@ -20,7 +20,7 @@ const ViewOffers = () => {
   const dispatch = useAppDispatch();
   const [brandName, setBrandName] = useState();
   const [offerTo, setOfferTo] = useState([]);
-  let offerCategory = [];
+
   //useEffect
   useEffect(() => {
     //Initial FormData Fetch
@@ -117,7 +117,8 @@ const ViewOffers = () => {
               <div>
                 <p className="text-sm text-gray-500">Offer Validity</p>
                 <p className="font-medium text-lg">
-                  {formData.offerValidity || "-"}
+                  {formData.offerValidity.from || "-"} -
+                  {formData.offerValidity.to || "-"}
                 </p>
               </div>
               <div>

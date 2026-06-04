@@ -134,6 +134,17 @@ const AppSidebar = () => {
               <p className="text-sm">Coupons</p>
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/articles"
+              className={({ isActive }) =>
+                `${linkClass} ${isActive ? activeClass : idleClass}`
+              }
+            >
+              <ProfileFilled className="opacity-70" />
+              <p className="text-sm">Articles</p>
+            </NavLink>
+          </li>
 
           <li className="pt-4 mt-4 border-t border-(--border-color)">
             <NavLink

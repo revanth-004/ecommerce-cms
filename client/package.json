@@ -26,6 +26,8 @@
     "react-dropdown": "^1.11.0",
     "react-highlight-words": "^0.21.0",
     "react-phone-input-material-ui": "^3.0.0",
+    "react-quill": "^2.0.0",
+    "react-quill-new": "^3.8.3",
     "react-redux": "^9.2.0",
     "react-router": "^7.14.2",
     "react-select": "^5.10.2",

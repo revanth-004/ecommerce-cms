@@ -22,7 +22,7 @@ const CalenderInput = (props) => {
         value={value}
         onChange={onChange}
         format={format}
-        className={`w-1/2 px-3 py-2 border border-(--border-color) rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${className} ${
+        className={`w-full px-3 py-2 border border-(--border-color) rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${className} ${
           error
             ? "border-red-500 focus:ring-2 focus:ring-red-200"
             : "border-(--border-color) focus:ring-2 focus:ring-blue-500 focus:border-transparent"

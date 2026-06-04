@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import OfferForm from "../../components/form/OfferForm";
-import { validate } from "../../utils/offerValidation.js";
+import CouponForm from "../../components/form/CouponForm";
+import { validate } from "../../utils/couponValidation.js";
 import { useToast } from "../../context/ToastContext.jsx";
 import { useAppDispatch } from "../../hooks/reduxHooks";
 import { fetchCompanies } from "../../features/company/companySlice";
@@ -12,23 +12,25 @@ import { selectSelectedCompany } from "../../features/company/companySelectors";
 const initialState = {
   companyId: "",
   brandId: "",
-  offerName: "",
-  offerBanner: "",
-  offerValue: "",
-  offerMethod: "",
-  offerValidity: "",
-  offerCategory: "",
-  offerTo: "",
+  couponName: "",
+  couponDescription: "",
+  couponCode: "",
+  couponBanner: "",
+  couponValue: "",
+  couponMethod: "",
+  couponValidity: { from: "", to: "" },
+  couponCategory: "",
+  couponToCustomers: [],
+  couponValueGreaterThan: "",
 };
 
-const CreateOffers = () => {
+const CreateCoupons = () => {
   const { showToast } = useToast();
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialState);
   const [formErrors, setFormErrors] = useState({});
   const [brands, setBrands] = useState([]);
-  const [offerTo, setOfferTo] = useState([]);
-  const [bannerFile, setBannerFile] = useState(null);
+  const [couponToCustomers, setCouponToCustomers] = useState([]);
   const selectedCompany = useAppSelector(selectSelectedCompany);
 
   const dispatch = useAppDispatch();
@@ -44,9 +46,9 @@ const CreateOffers = () => {
     setFormData((prev) => ({
       ...prev,
       brandId: "",
-      offerTo: [],
+      couponToCustomers: [],
     }));
-    setOfferTo([]);
+    setCouponToCustomers([]);
 
     axios
       .get(`http://localhost:3000/api/brands?companyId=${selectedCompany._id}`)
@@ -59,34 +61,34 @@ const CreateOffers = () => {
   }, [selectedCompany?._id]);
 
   useEffect(() => {
-    // Fetch offerTo (customers/products/productCategory)
+    // Fetch couponToCustomers (customers/products/productCategory)
     if (!formData.brandId) {
       setFormData((prev) => ({
         ...prev,
-        offerTo: [],
+        couponToCustomers: [],
       }));
-      return setOfferTo([]);
+      return setCouponToCustomers([]);
     }
-    if (!formData.offerCategory) {
-      return setOfferTo([]);
+    if (!formData.couponCategory) {
+      return setCouponToCustomers([]);
     }
     setFormData((prev) => ({
       ...prev,
-      offerTo: [],
+      couponToCustomers: [],
     }));
     axios
       .get(
-        `http://localhost:3000/api/${formData.offerCategory}?brandId=${formData.brandId}`,
+        `http://localhost:3000/api/${formData.couponCategory}?brandId=${formData.brandId}`,
       )
       // .get(`http://localhost:3000/api/${formData.offerCategory}`)
-      .then((res) => setOfferTo(res.data.data))
+      .then((res) => setCouponToCustomers(res.data.data))
       .catch((err) => console.error("Error fetching customer", err));
-    console.log(offerTo);
+    console.log(couponToCustomers);
 
     return () => {
-      setOfferTo([]);
+      setCouponToCustomers([]);
     };
-  }, [formData.offerCategory, formData?.brandId]);
+  }, [formData.couponCategory, formData?.brandId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,29 +99,29 @@ const CreateOffers = () => {
 
     try {
       let payload = { ...formData, companyId: selectedCompany?._id };
-      if (bannerFile) {
-        const uploadFile = new FormData();
-        uploadFile.append("file", bannerFile);
-        const res = await axios.post(
-          "http://localhost:3000/upload",
-          uploadFile,
-        );
-        payload.offerBanner = res.data.filePath;
-      }
+      //   if (bannerFile) {
+      //     const uploadFile = new FormData();
+      //     uploadFile.append("file", bannerFile);
+      //     const res = await axios.post(
+      //       "http://localhost:3000/upload",
+      //       uploadFile,
+      //     );
+      //     payload.couponBanner = res.data.filePath;
+      //   }
       const response = await axios.post(
-        "http://localhost:3000/api/offers",
+        "http://localhost:3000/api/coupons",
         payload,
       );
       dispatch(fetchCompanies());
       showToast(response.data.message, "success");
-      navigate("/offers");
+      navigate("/coupons");
     } catch (err) {
       console.log("Status:", err.response?.status);
       console.log("Server message:", err.response?.data);
       let message =
         err.response?.data?.message ||
         err.message ||
-        "Failed to create a offer";
+        "Failed to create a coupon";
       showToast(message, "error");
     }
   };
@@ -129,22 +131,20 @@ const CreateOffers = () => {
   return (
     <div className="min-h-screen">
       <div className="max-w-5xl mx-auto">
-        <OfferForm
+        <CouponForm
           formData={formData}
           setFormData={setFormData}
           formErrors={formErrors}
           setFormErrors={setFormErrors}
           brands={brands}
-          offerTo={offerTo}
-          bannerFile={bannerFile}
-          setBannerFile={setBannerFile}
+          couponToCustomers={couponToCustomers}
           onSubmit={handleSubmit}
-          onCancel={() => navigate("/offers")}
-          submitLabel="Create Offer"
+          onCancel={() => navigate("/coupons")}
+          submitLabel="Create Coupon"
         />
       </div>
     </div>
   );
 };
 
-export default CreateOffers;
+export default CreateCoupons;

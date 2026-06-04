@@ -38,6 +38,10 @@ import CreateCoupons from "./pages/Coupons/CreateCoupons";
 import EditCoupons from "./pages/Coupons/EditCoupons";
 import ViewCoupons from "./pages/Coupons/ViewCoupons";
 
+import Articles from "./pages/Articles/Articles";
+import CreateArticles from "./pages/Articles/CreateArticles";
+import EditArticles from "./pages/Articles/EditArticles";
+
 import Settings from "./pages/Settings/Settings";
 import Tax from "./pages/Settings/Tax/Tax";
 import Hsn from "./pages/Settings/Hsn/Hsn";
@@ -90,6 +94,10 @@ function App() {
               <Route path="/coupons/create" element={<CreateCoupons />} />
               <Route path="/coupons/edit/:id" element={<EditCoupons />} />
               <Route path="/coupons/view/:id" element={<ViewCoupons />} />
+
+              <Route path="/articles" element={<Articles />} />
+              <Route path="/articles/create" element={<CreateArticles />} />
+              <Route path="/articles/edit/:id" element={<EditArticles />} />
 
               <Route path="/settings" element={<Settings />} />
               <Route
