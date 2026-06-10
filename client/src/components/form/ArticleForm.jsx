@@ -6,7 +6,7 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import { selectSelectedCompany } from "../../features/company/companySelectors";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
-
+import { validate } from "../../utils/validation.js";
 import SelectInput from "../../components/form/input/SelectInput.jsx";
 import FormCard from "../../components/form/form-ui/FormCard.jsx";
 import InputField from "../../components/form/input/InputField.jsx";
@@ -89,10 +89,7 @@ const ArticleForm = () => {
   useEffect(() => {
     if (!selectedCompany) return setBrands([]);
 
-    // Don't reset brandId on edit — preserve the fetched value
-    if (!isEdit) {
-      setFormData((prev) => ({ ...prev, brandId: "" }));
-    }
+    setFormData((prev) => ({ ...prev, brandId: "", articleCategoryId: "" }));
 
     axios
       .get(`http://localhost:3000/api/brands?companyId=${selectedCompany._id}`)
@@ -124,6 +121,15 @@ const ArticleForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("------------");
+    console.log(articleData);
+
+    const errors = validate("article", {
+      ...formData,
+      articleContent: articleData.replace(/<[^>]*>/g, "").trim(), // ✅ strips tags before validation
+    });
+    setFormErrors(errors);
+    if (Object.keys(errors).length > 0) return;
 
     const payload = {
       ...formData,
@@ -170,9 +176,10 @@ const ArticleForm = () => {
             value={
               brandOptions.find((o) => o.value === formData.brandId) || null
             }
-            onChange={(opt) =>
-              setFormData((p) => ({ ...p, brandId: opt?.value }))
-            }
+            onChange={(opt) => {
+              setFormData((p) => ({ ...p, brandId: opt?.value }));
+              setFormErrors((prev) => ({ ...prev, brandId: "" }));
+            }}
             placeholder="Choose..."
             error={formErrors.brandId}
             mandatory
@@ -185,9 +192,13 @@ const ArticleForm = () => {
                 (o) => o.value === formData.articleCategoryId,
               ) || null
             }
-            onChange={(opt) =>
-              setFormData((p) => ({ ...p, articleCategoryId: opt?.value }))
-            }
+            onChange={(opt) => {
+              setFormData((p) => ({ ...p, articleCategoryId: opt?.value }));
+              setFormErrors((prev) => ({
+                ...prev,
+                articleCategoryId: "",
+              }));
+            }}
             placeholder="Choose..."
             error={formErrors.articleCategoryId}
             mandatory
@@ -199,7 +210,7 @@ const ArticleForm = () => {
             value={formData.articleTitle}
             onChange={handleChange}
             placeholder="Enter Article Title"
-            error={formErrors.articleTitle}
+            error={formErrors?.articleTitle}
             mandatory
           />
           <div className="col-span-2">
@@ -212,6 +223,11 @@ const ArticleForm = () => {
               className="mb-14"
               style={{ height: "400px" }}
             />
+            {formErrors.articleContent && (
+              <p className="text-red-500 text-xs mt-1">
+                {formErrors.articleContent}
+              </p>
+            )}
           </div>
         </div>
 

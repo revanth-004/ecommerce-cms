@@ -5,6 +5,9 @@ const connectDB = require("./config/db");
 const multer = require("multer");
 const path = require("path");
 
+const cmsRoutes = require("./routes/cmsRoutes");
+const CMS = require("./models/CMS");
+
 const organizerRoutes = require("./routes/organizerRoutes");
 const Organizer = require("./models/Organizer");
 
@@ -107,6 +110,7 @@ app.post("/upload/multiple", upload.array("files", 20), (req, res) => {
 
 // ── routes ───────────────────────────────────────────────────────────────────
 
+app.use("/api/cms", cmsRoutes);
 app.use("/api/organizers", organizerRoutes);
 app.use("/api/customers", customerRoutes);
 app.use("/api/brands", brandRoutes);

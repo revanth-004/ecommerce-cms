@@ -56,6 +56,18 @@ const AppSidebar = () => {
 
           <li>
             <NavLink
+              to="/cms"
+              className={({ isActive }) =>
+                `${linkClass} ${isActive ? activeClass : idleClass}`
+              }
+            >
+              <ContainerOutlined className="opacity-70 " />
+              <p className="text-sm text-primary">CMS</p>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
               to="/company"
               className={({ isActive }) =>
                 `${linkClass} ${isActive ? activeClass : idleClass}`
