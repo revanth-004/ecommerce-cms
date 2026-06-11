@@ -3,6 +3,7 @@ import { useLocation, NavLink } from "react-router";
 
 const routeNameMap = {
   dashboard: "Dashboard",
+  cms: "CMS",
   company: "Company",
   brand: "Brand",
   seller: "Seller",

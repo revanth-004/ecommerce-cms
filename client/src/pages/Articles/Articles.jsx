@@ -12,6 +12,7 @@ import { selectSelectedCompany } from "../../features/company/companySelectors";
 const Articles = () => {
   const { showToast } = useToast();
   const [articles, setArticles] = useState([]);
+  
 
   const [searchQuery, setSearchQuery] = useState("");
   const selectedCompany = useAppSelector(selectSelectedCompany);

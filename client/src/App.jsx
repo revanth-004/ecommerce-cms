@@ -3,7 +3,10 @@ import "./App.css";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import AppLayout from "./components/AppLayout";
+
 import Dashboard from "./pages/Dashboard/Dashboard";
+
+import CMS from "./pages/CMS/CMS";
 
 import Company from "./pages/Company/Company";
 import CreateCompany from "./pages/Company/CreateCompany";
@@ -62,6 +65,8 @@ function App() {
             <Route element={<AppLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
+
+              <Route path="/cms" element={<CMS />} />
 
               <Route path="/company" element={<Company />} />
               <Route path="/company/create" element={<CreateCompany />} />
