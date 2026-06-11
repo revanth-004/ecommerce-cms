@@ -146,10 +146,13 @@ const Products = () => {
 
   const exportCSV = () => {
     const headers = ["Product Name", "Brand"];
+    console.log(categories);
     const rows = allProducts.map((product) => [
       product.productName,
       brands.find((b) => b._id === product.brandId)?.brandName ||
         product.brandId,
+
+      product.productDescription,
     ]);
 
     const csvContent = [headers, ...rows]
