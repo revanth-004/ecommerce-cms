@@ -38,8 +38,8 @@ export const validate = (formData) => {
     category.button = { ...category.button, text: "Button text is required" };
   if (!formData.category?.sectionContent?.button?.link?.trim())
     category.button = { ...category.button, link: "Button link is required" };
-  if (!formData.category?.sectionContent?.button?.icon?.length)
-    category.button = { ...category.button, icon: "Button icon is required" };
+  // if (!formData.category?.sectionContent?.button?.icon?.length)
+  //   category.button = { ...category.button, icon: "Button icon is required" };
   if (Object.keys(category).length)
     errors.category = { sectionContent: category };
 
@@ -76,8 +76,8 @@ export const validate = (formData) => {
     benefit.button = { ...benefit.button, text: "Button text is required" };
   if (!formData.benefit?.sectionContent?.button?.link?.trim())
     benefit.button = { ...benefit.button, link: "Button link is required" };
-  if (!formData.benefit?.sectionContent?.button?.icon?.length)
-    benefit.button = { ...benefit.button, icon: "Button icon is required" };
+  // if (!formData.benefit?.sectionContent?.button?.icon?.length)
+  //   benefit.button = { ...benefit.button, icon: "Button icon is required" };
   if (Object.keys(benefit).length) errors.benefit = { sectionContent: benefit };
 
   // Banner
@@ -92,8 +92,8 @@ export const validate = (formData) => {
     banner.button = { ...banner.button, text: "Button text is required" };
   if (!formData.banner?.sectionContent?.button?.link?.trim())
     banner.button = { ...banner.button, link: "Button link is required" };
-  if (!formData.banner?.sectionContent?.button?.icon?.length)
-    banner.button = { ...banner.button, icon: "Button icon is required" };
+  // if (!formData.banner?.sectionContent?.button?.icon?.length)
+  //   banner.button = { ...banner.button, icon: "Button icon is required" };
   if (Object.keys(banner).length) errors.banner = { sectionContent: banner };
 
   // About
@@ -108,8 +108,8 @@ export const validate = (formData) => {
     about.button = { ...about.button, text: "Button text is required" };
   if (!formData.about?.sectionContent?.button?.link?.trim())
     about.button = { ...about.button, link: "Button link is required" };
-  if (!formData.about?.sectionContent?.button?.icon?.length)
-    about.button = { ...about.button, icon: "Button icon is required" };
+  // if (!formData.about?.sectionContent?.button?.icon?.length)
+  //   about.button = { ...about.button, icon: "Button icon is required" };
   if (Object.keys(about).length) errors.about = { sectionContent: about };
 
   // Testimonial
@@ -143,8 +143,8 @@ export const validate = (formData) => {
     article.button = { ...article.button, text: "Button text is required" };
   if (!formData.article?.sectionContent?.button?.link?.trim())
     article.button = { ...article.button, link: "Button link is required" };
-  if (!formData.article?.sectionContent?.button?.icon?.length)
-    article.button = { ...article.button, icon: "Button icon is required" };
+  // if (!formData.article?.sectionContent?.button?.icon?.length)
+  //   article.button = { ...article.button, icon: "Button icon is required" };
   if (Object.keys(article).length) errors.article = { sectionContent: article };
 
   // Call For Action
@@ -159,8 +159,8 @@ export const validate = (formData) => {
     cfa.button = { ...cfa.button, text: "Button text is required" };
   if (!formData.callForAction?.sectionContent?.button?.link?.trim())
     cfa.button = { ...cfa.button, link: "Button link is required" };
-  if (!formData.callForAction?.sectionContent?.button?.icon?.length)
-    cfa.button = { ...cfa.button, icon: "Button icon is required" };
+  // if (!formData.callForAction?.sectionContent?.button?.icon?.length)
+  //   cfa.button = { ...cfa.button, icon: "Button icon is required" };
   if (Object.keys(cfa).length) errors.callForAction = { sectionContent: cfa };
 
   return errors;

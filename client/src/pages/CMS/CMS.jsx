@@ -187,7 +187,7 @@ const ButtonSection = (props) => {
           onChange={({ fileList }) => {
             handleChange(`${sectionName}.sectionContent.button.icon`, fileList);
           }}
-          mandatory
+          // mandatory
           multiple={false}
           acceptVideo={false}
           error={formErrors?.[sectionName]?.sectionContent?.button?.icon}
@@ -1396,13 +1396,15 @@ const CMS = () => {
           />
         </Card>
       </Card>
-      <button
-        type="button"
-        onClick={handleSubmit}
-        className="px-4 py-2 text-sm font-medium text-white bg-(--color-primary) rounded-lg shadow-lg active:scale-95"
-      >
-        Submit
-      </button>
+      <div className=" flex justify-end">
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="px-6 py-2 text-sm font-medium text-white bg-(--color-primary) rounded-lg shadow-lg active:scale-95"
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 };

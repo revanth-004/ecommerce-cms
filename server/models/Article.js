@@ -6,6 +6,7 @@ const articleSchema = new mongoose.Schema(
     brandId: { type: String },
     articleCategoryId: { type: String },
     articleTitle: { type: String, trim: true },
+    articleBanner: { type: String },
     articleContent: { type: String },
   },
   {

@@ -8,14 +8,17 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
 import { validate } from "../../utils/validation.js";
 import SelectInput from "../../components/form/input/SelectInput.jsx";
+import FileInput from "../../components/form/input/FileInput.jsx";
 import FormCard from "../../components/form/form-ui/FormCard.jsx";
 import InputField from "../../components/form/input/InputField.jsx";
+import { Image as AntImage } from "antd";
 
 const initialState = {
   companyId: "",
   brandId: "",
   articleCategoryId: "",
   articleTitle: "",
+  articleBanner: "",
   articleContent: "",
 };
 
@@ -69,6 +72,7 @@ const ArticleForm = () => {
   const [articleData, setArticleData] = useState("");
   const [brands, setBrands] = useState([]);
   const [articleCategory, setArticleCategory] = useState([]);
+  const [articleBanner, setArticleBanner] = useState(null);
   const [loading, setLoading] = useState(isEdit);
 
   // Fetch article data if editing
@@ -113,6 +117,19 @@ const ArticleForm = () => {
     return () => setArticleCategory([]);
   }, [formData.brandId]);
 
+  const handleBannerChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    img.onload = () => {
+      setFormErrors((prev) => ({ ...prev, articleBanner: "" }));
+      setArticleBanner(file);
+      URL.revokeObjectURL(objectUrl);
+    };
+    img.src = objectUrl;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -131,13 +148,21 @@ const ArticleForm = () => {
     setFormErrors(errors);
     if (Object.keys(errors).length > 0) return;
 
-    const payload = {
-      ...formData,
-      companyId: selectedCompany._id,
-      articleContent: articleData,
-    };
-
     try {
+      const payload = {
+        ...formData,
+        companyId: selectedCompany._id,
+        articleContent: articleData,
+      };
+      if (articleBanner) {
+        const uploadData = new FormData();
+        uploadData.append("file", articleBanner);
+        const res = await axios.post(
+          "http://localhost:3000/upload",
+          uploadData,
+        );
+        payload.articleBanner = res.data.filePath;
+      }
       const response = isEdit
         ? await axios.put(`http://localhost:3000/api/article/${id}`, payload)
         : await axios.post(`http://localhost:3000/api/article`, payload);
@@ -213,6 +238,33 @@ const ArticleForm = () => {
             error={formErrors?.articleTitle}
             mandatory
           />
+          <div className="flex">
+            <FileInput
+              label="Article Banner"
+              desc=""
+              name="articleBanner"
+              onChange={handleBannerChange}
+              error={formErrors.articleBanner}
+              mandatory
+            />
+            {(articleBanner || formData.articleBanner) && (
+              <AntImage
+                src={
+                  articleBanner
+                    ? URL.createObjectURL(articleBanner)
+                    : `http://localhost:3000${formData.articleBanner}`
+                }
+                alt="Article Banner Preview"
+                className="m-2 rounded-lg"
+                style={{
+                  width: "auto",
+                  height: "100px",
+                  objectFit: "contain",
+                  maxWidth: "100%",
+                }}
+              />
+            )}
+          </div>
           <div className="col-span-2">
             <ReactQuill
               theme="snow"
